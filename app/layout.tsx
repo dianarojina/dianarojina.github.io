@@ -1,4 +1,3 @@
-import 'style.css';
 export default function RootLayout({
   children,
 }: {
@@ -6,8 +5,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head><link rel="stylesheet" href="style.css" /></head>
-      {/* <style>{`
+      <style>{`
         body {
           background-color: aquamarine;
         }
@@ -15,8 +13,8 @@ export default function RootLayout({
           font-family: cursive;
         }
       `}
-      </style> */}
+      </style>
       <body>{children}</body>
     </html>
-  );
+  )
 }
