@@ -1,6 +1,6 @@
 body {
-    background-color: aquamarine;
+    background-color: aquamarine !important;
 }
 h1 {
-    font-family: cursive;
+    font-family: cursive !important;
 }
