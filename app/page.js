@@ -1,5 +1,9 @@
+import '../styles/styles_for_main_page.css'
 export default function Page() {
   return (
-    <h1>tyt bila stranitsa 0</h1>
+    <div class="main">
+      <h1>Where am I?</h1>
+
+    </div>
   );
 };
