@@ -1,4 +1,3 @@
-import "./styles.css";
 export default function RootLayout({
   children,
 }: {
@@ -6,6 +5,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <link rel="stylesheet" href="./styles.css" />
       <body>{children}</body>
     </html>
   )
