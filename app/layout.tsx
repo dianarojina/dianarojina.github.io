@@ -5,7 +5,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <link rel="stylesheet" href="./styles.css" />
+      <style>{`
+        body {
+          background-color: aquamarine;
+        }
+        h1 {
+          font-family: cursive;
+        }
+      `}
+      </style>
       <body>{children}</body>
     </html>
   )
