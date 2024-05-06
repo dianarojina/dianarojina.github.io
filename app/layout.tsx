@@ -1,4 +1,4 @@
-import './style.css';
+import 'style.css';
 export default function RootLayout({
   children,
 }: {
@@ -6,7 +6,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head><link rel="stylesheet" href="./style.css" /></head>
+      <head><link rel="stylesheet" href="style.css" /></head>
       {/* <style>{`
         body {
           background-color: aquamarine;
