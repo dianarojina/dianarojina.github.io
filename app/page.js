@@ -3,7 +3,7 @@ export default function Page() {
   return (
     <div className={`${styles.main}`}>
       <h1>Where am I?</h1>
-
+        
     </div>
   );
 };
