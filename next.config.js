@@ -1,9 +1,10 @@
-const nextConfig = {
-  output: 'export'
-}
-module.exports = nextConfig
+// const nextConfig = {
+//   output: 'export'
+// }
+// module.exports = nextConfig;
 
-const nextConfig1 = {
+const nextConfig = {
+  output: 'export',
   webpack(config) {
     config.module.rules.push({
       test: /\.css$/,
@@ -23,4 +24,3 @@ const nextConfig1 = {
 };
 
 module.exports = nextConfig;
-module.exports = nextConfig1;
