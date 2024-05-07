@@ -1,3 +1,4 @@
+import styles from './layout.module.css';
 export default function RootLayout({
   children,
 }: {
@@ -5,13 +6,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head><style> {`
-        body {
-          background-color: #faffbf;
-        }
-      `}
-      </style></head>
-      <body>{children}</body>
+      <body className={styles.body}>{children}</body>
     </html>
   );
-}
+} 
