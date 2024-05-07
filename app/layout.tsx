@@ -6,6 +6,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
       <style> {`
         .main {
           background-color: #faffbf;
@@ -15,6 +16,7 @@ export default function RootLayout({
         }
       `}
       </style>
+      </head>
       <body>{children}</body>
     </html>
   )
