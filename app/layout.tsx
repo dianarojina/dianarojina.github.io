@@ -5,13 +5,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <style> {`
-        #main {
+      <head><style> {`
+        .main {
           background-color: #faffbf;
-
         }
       `}
-      </style>
+      </style></head>
       <body>{children}</body>
     </html>
   );
