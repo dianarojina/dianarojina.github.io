@@ -1,10 +1,7 @@
-export default function Page() {
+const HomePage = () => {
   return (
-    <div>
-      <h1>Where am I?</h1>
-        <div class="wind">
-
-        </div>
-    </div>
-  );
+    <h1>---------</h1>
+    );
 };
+
+export default HomePage;
