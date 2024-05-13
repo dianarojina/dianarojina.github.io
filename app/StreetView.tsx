@@ -1,5 +1,4 @@
 'use client';
-
 import { useEffect } from 'react';
 
 const StreetView = () => {
@@ -17,7 +16,9 @@ const StreetView = () => {
     );
   }, []);
 
-  return <div id="pano" style={{ height: '700px', width: '45%' }} />;
+  return (
+    <div id="pano" style={{ height: '700px', width: '45%', margin: '10px' }} />
+  );
 };
-
+//
 export default StreetView;

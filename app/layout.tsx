@@ -17,7 +17,10 @@ export default function RootLayout({
       </head>
       <body>
         <div className={Styles.main}>
-          <h1>Where am I?</h1>
+          <h1>Где я?</h1>
+          <div>
+            <input className={Styles.inp} /> <button>Проверить</button>
+          </div>
           <StreetView />
           {children}
         </div>
