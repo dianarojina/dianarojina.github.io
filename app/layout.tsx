@@ -1,6 +1,7 @@
 import StreetView from './StreetView';
+import Styles from './layout.module.css';
 
-const API_KEY = process.env.API_KEY
+const API_KEY = process.env.API_KEY;
 
 export default function RootLayout({
   children,
@@ -15,9 +16,11 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <h1>Where am I?</h1>
-        <StreetView />
-        {children}
+        <div className={Styles.main}>
+          <h1>Where am I?</h1>
+          <StreetView />
+          {children}
+        </div>
       </body>
     </html>
   );
