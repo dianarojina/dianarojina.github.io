@@ -12,13 +12,18 @@ const StreetView = () => {
           heading: 34,
           pitch: 10,
         },
+        addressControl: false,
+        fullscreenControl: false,
+        showRoadLabels: false,
       }
     );
   }, []);
 
   return (
-    <div id="pano" style={{ height: '700px', width: '45%', margin: '10px' }} />
+    <div
+      id="pano"
+      style={{ height: '700px', width: '45%', margin: '10px', border: '1px' }}
+    />
   );
 };
-//
 export default StreetView;
