@@ -1,5 +1,4 @@
 import { initializeApp } from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
 
 const API_KEY_DB = process.env.API_KEY_DB;
 const AUTH_DOMAIN = process.env.AUTH_DOMAIN;
@@ -9,6 +8,7 @@ const APP_ID = process.env.APP_ID;
 
 const firebaseConfig = {
   apiKey: `${API_KEY_DB}`,
+  databaseURL: `${DB_URL}`,
   authDomain: `${AUTH_DOMAIN}`,
   projectId: `${PROJ_ID}`,
   storageBucket: `${STOR_BUCKET}`,
@@ -18,4 +18,3 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
