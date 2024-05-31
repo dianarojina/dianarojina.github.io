@@ -1,12 +1,19 @@
 'use client';
 import { get, ref } from 'firebase/database';
 import { database } from './bdConfig';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { globalLat, globalLng } from './StreetView';
 
 export default function Page() {
   const [inputCity, setInputCity] = useState('');
-  const [foundCity, setFoundCity] = useState('');
   const [message, setMessage] = useState('');
+
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    if (globalLat !== null && globalLng !== null) {
+      setLoading(false);
+    }
+  }, [globalLat, globalLng]);
 
   const checkCity = () => {
     const pointsRef = ref(database, 'points');
@@ -14,15 +21,18 @@ export default function Page() {
       .then((snapshot) => {
         if (snapshot.exists()) {
           const points = snapshot.val();
-          const matchingCity = points.find((point) =>
-            point?.city?.toLowerCase().includes(inputCity.toLowerCase())
+          const matchingCity = Object.keys(points).find((city) =>
+            city.toLowerCase().includes(inputCity.toLowerCase())
           );
 
           if (matchingCity) {
-            setFoundCity(matchingCity.city);
-            setMessage(`Правильно, это ${matchingCity.city}!`);
+            const { lat, lng } = points[matchingCity];
+            if (globalLat === lat && globalLng === lng) {
+              setMessage(`Правильно, это ${matchingCity}!`);
+            } else {
+              setMessage(`Это не "${inputCity}"! Подумай еще.`);
+            }
           } else {
-            setFoundCity('');
             setMessage(`Это не "${inputCity}"! Подумай еще.`);
           }
         } else {
