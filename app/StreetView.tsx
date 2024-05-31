@@ -1,23 +1,53 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { get, ref } from 'firebase/database';
+import { database } from './bdConfig';
+
+interface Position {
+  lat: number;
+  lng: number;
+}
 
 const StreetView = () => {
+  const [position, setPosition] = useState<Position | null>(null);
+
   useEffect(() => {
-    const fenway = { lat: 62.02757, lng: 129.731495 };
-    const panorama = new google.maps.StreetViewPanorama(
-      document.getElementById('pano') as HTMLElement,
-      {
-        position: fenway,
-        pov: {
-          heading: 34,
-          pitch: 10,
-        },
-        addressControl: false,
-        fullscreenControl: false,
-        showRoadLabels: false,
+    const fetchPosition = async () => {
+      try {
+        const pointsRef = ref(database, 'points/1');
+        const snapshot = await get(pointsRef);
+
+        if (snapshot.exists()) {
+          const { lat, lng } = snapshot.val();
+          setPosition({ lat, lng });
+        } else {
+          console.log('No data available');
+        }
+      } catch (error) {
+        console.error('Error fetching position:', error);
       }
-    );
+    };
+
+    fetchPosition();
   }, []);
+
+  useEffect(() => {
+    if (position) {
+      const panorama = new google.maps.StreetViewPanorama(
+        document.getElementById('pano') as HTMLElement,
+        {
+          position,
+          pov: {
+            heading: 34,
+            pitch: 10,
+          },
+          addressControl: false,
+          fullscreenControl: false,
+          showRoadLabels: false,
+        }
+      );
+    }
+  }, [position]);
 
   return (
     <div
@@ -26,4 +56,5 @@ const StreetView = () => {
     />
   );
 };
+
 export default StreetView;

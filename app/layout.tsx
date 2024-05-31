@@ -14,19 +14,12 @@ export default function RootLayout({
         <script
           src={`https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=geometry,drawing,places`}
         />
-        <script src="./bdConfig.js"></script>
       </head>
       <body>
         <div className={Styles.main}>
-          <h1>Какой это город?</h1>
-          <div>
-            <input className={Styles.inp} />{' '}
-            <button id="button">Проверить</button>
-          </div>
-          <StreetView />
           {children}
+          <StreetView />
         </div>
-        <script src="./scriptDB.js"></script>
       </body>
     </html>
   );
