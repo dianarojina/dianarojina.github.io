@@ -6,6 +6,7 @@ const AUTH_DOMAIN = process.env.AUTH_DOMAIN;
 const PROJ_ID = process.env.PROJ_ID;
 const STOR_BUCKET = process.env.STOR_BUCKET;
 const APP_ID = process.env.APP_ID;
+const DB_URL = process.env.DB_URL;
 
 const firebaseConfig = {
   apiKey: `${API_KEY_DB}`,

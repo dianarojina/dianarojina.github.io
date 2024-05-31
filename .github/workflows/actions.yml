@@ -8,6 +8,7 @@ env:
   PROJ_ID: ${{ secrets.PROJ_ID }}
   STOR_BUCKET: ${{ secrets.STOR_BUCKET }}
   APP_ID: ${{ secrets.APP_ID }}
+  DB_URL: ${{ secrets.DB_URL }}
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
