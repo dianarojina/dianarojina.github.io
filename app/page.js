@@ -4,7 +4,7 @@ import { database } from './bdConfig';
 import { useState, useEffect } from 'react';
 import { globalLat, globalLng } from './StreetView';
 
-export default function Page() {
+const Page = () => {
   const [inputCity, setInputCity] = useState('');
   const [message, setMessage] = useState('');
 
@@ -62,4 +62,5 @@ export default function Page() {
       {message && <p>{message}</p>}
     </div>
   );
-}
+};
+export default Page();
