@@ -1,66 +1,128 @@
 'use client';
+import { useState, useEffect } from 'react';
 import { get, ref } from 'firebase/database';
 import { database } from './bdConfig';
-import { useState, useEffect } from 'react';
-import { globalLat, globalLng } from './StreetView';
+import StreetView from './StreetView';
+import styles from './layout.module.css';
 
 const Page = () => {
   const [inputCity, setInputCity] = useState('');
   const [message, setMessage] = useState('');
+  const [pointsData, setPointsData] = useState({});
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const [loading, setLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
+
+  const [score, setScore] = useState(0);
+
+  const [isGameOver, setIsGameOver] = useState(false);
+
+  const resetGame = () => {
+    setInputCity('');
+    setMessage('');
+    setCurrentIndex(0);
+    setScore(0);
+    setShowModal(false);
+    setIsGameOver(false);
+  };
+
   useEffect(() => {
-    if (globalLat !== null && globalLng !== null) {
-      setLoading(false);
-    }
-  }, [globalLat, globalLng]);
+    const fetchPointsData = async () => {
+      try {
+        const pointsRef = ref(database, 'points');
+        const snapshot = await get(pointsRef);
 
-  const checkCity = () => {
-    const pointsRef = ref(database, 'points');
-    get(pointsRef)
-      .then((snapshot) => {
         if (snapshot.exists()) {
-          const points = snapshot.val();
-          const matchingCity = Object.keys(points).find((city) =>
-            city.toLowerCase().includes(inputCity.toLowerCase())
-          );
-
-          if (matchingCity) {
-            const { lat, lng } = points[matchingCity];
-            if (globalLat === lat && globalLng === lng) {
-              setMessage(`Правильно, это ${matchingCity}!`);
-            } else {
-              setMessage(`Это не "${inputCity}"! Подумай еще.`);
-            }
-          } else {
-            setMessage(`Это не "${inputCity}"! Подумай еще.`);
-          }
+          setPointsData(snapshot.val());
         } else {
-          console.log('Нет данных...');
+          console.log('No data available');
         }
-      })
-      .catch((error) => {
-        console.error(error);
-        setMessage('Произошла ошибка при проверке города...');
-      });
+      } catch (error) {
+        console.error('Error fetching points data:', error);
+      }
+    };
+
+    fetchPointsData();
+  }, []);
+
+  const checkCity = async () => {
+    try {
+      const points = pointsData;
+      const matchingCity = Object.keys(points).find((city) =>
+        city.toLowerCase().includes(inputCity.toLowerCase())
+      );
+
+      if (matchingCity) {
+        const { lat, lng, text } = points[matchingCity];
+        if (
+          lat === Object.values(points)[currentIndex].lat &&
+          lng === Object.values(points)[currentIndex].lng
+        ) {
+          setMessage(`Правильно, это ${matchingCity}!`);
+          setCurrentIndex(
+            Math.floor(Math.random() * Object.keys(points).length)
+          );
+          setScore((prevScore) => prevScore + 1);
+          setModalMessage(text);
+          setShowModal(true);
+        } else {
+          setIsGameOver(true);
+          setMessage(false);
+          setModalMessage('Вы ответили неправильно.');
+          setShowModal(true);
+        }
+      } else {
+        setIsGameOver(true);
+        setMessage(false);
+        setModalMessage('Вы ответили неправильно.');
+        setShowModal(true);
+      }
+    } catch (error) {
+      console.error('Error checking city:', error);
+    }
   };
 
   return (
-    <div>
+    <div className={styles.main}>
       <h1>Какой это город?</h1>
-      <div>
-        <input
-          id="city"
-          type="text"
-          value={inputCity}
-          onChange={(e) => setInputCity(e.target.value)}
-        />
-        <button id="btn" onClick={checkCity}>
-          Check City
-        </button>
+      <div className={styles.controls}>
+        <div className={styles.controls_con}>
+          <input
+            id="city"
+            type="text"
+            value={inputCity}
+            onChange={(e) => setInputCity(e.target.value)}
+          />
+          <button id="btn" onClick={checkCity}>
+            Проверить
+          </button>
+        </div>
+        <div className={styles.controls_con}>
+          <h2>Монетки {score} </h2>
+        </div>
       </div>
-      {message && <p>{message}</p>}
+      <div className={styles.wind}>
+        <StreetView currentIndex={currentIndex} pointsData={pointsData} />
+      </div>
+      {showModal && (
+        <div className={styles.modal}>
+          <div className={styles.modalContent}>
+            <span className={styles.close} onClick={() => setShowModal(false)}>
+              &times;
+            </span>
+            {<p>{message}</p>}
+            <p>{modalMessage}</p>
+            {isGameOver && (
+              <button className={styles.btn} onClick={resetGame}>
+                Начать сначала
+              </button>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
+
 export default Page;

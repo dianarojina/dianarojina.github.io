@@ -1,6 +1,4 @@
-import StreetView from './StreetView';
-import Styles from './layout.module.css';
-
+import styles from './layout.module.css';
 const API_KEY = process.env.API_KEY;
 
 export default function RootLayout({
@@ -15,12 +13,7 @@ export default function RootLayout({
           src={`https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=geometry,drawing,places`}
         />
       </head>
-      <body>
-        <div className={Styles.main}>
-          {children}
-          <StreetView />
-        </div>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

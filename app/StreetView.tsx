@@ -1,42 +1,29 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { get, ref } from 'firebase/database';
-import { database } from './bdConfig';
+import { Position } from './types';
 
-export interface Position {
-  lat: number;
-  lng: number;
+interface StreetViewProps {
+  currentIndex: number;
+  pointsData: Record<string, Position>;
 }
 
-export let globalLat: number | null = null; // Declare the global variable
-export let globalLng: number | null = null; // Declare the global variable
-
-const StreetView = () => {
+const StreetView: React.FC<StreetViewProps> = ({
+  currentIndex,
+  pointsData,
+}) => {
   const [position, setPosition] = useState<Position | null>(null);
 
   useEffect(() => {
-    const fetchPosition = async () => {
-      try {
-        const pointsRef = ref(database, 'points');
-        const snapshot = await get(pointsRef);
-
-        if (snapshot.exists()) {
-          const pointsData = snapshot.val();
-          const secondPointKey = Object.keys(pointsData)[1]; // Assuming the second point is the one you want to use
-          const secondPoint = pointsData[secondPointKey];
-          setPosition({ lat: secondPoint.lat, lng: secondPoint.lng });
-          globalLat = secondPoint.lat; // Assign the latitude value to the global variable
-          globalLng = secondPoint.lng; // Assign the latitude value to the global variable
-        } else {
-          console.log('No data available');
-        }
-      } catch (error) {
-        console.error('Error fetching position:', error);
-      }
-    };
-
-    fetchPosition();
-  }, []);
+    if (
+      currentIndex !== null &&
+      currentIndex >= 0 &&
+      pointsData &&
+      Object.values(pointsData)[currentIndex]
+    ) {
+      const { lat, lng } = Object.values(pointsData)[currentIndex];
+      setPosition({ lat, lng });
+    }
+  }, [currentIndex, pointsData]);
 
   useEffect(() => {
     if (position) {
@@ -59,7 +46,7 @@ const StreetView = () => {
   return (
     <div
       id="pano"
-      style={{ height: '700px', width: '45%', margin: '10px', border: '1px' }}
+      style={{ height: '700px', width: '85%', margin: '10px', border: '1px' }}
     />
   );
 };
