@@ -1,3 +1,9 @@
+.mainBody {
+  background-color: rgb(175, 201, 229);
+  color: rgb(36, 50, 78);
+}
+
+/* страница game */
 .main {
   display: flex;
   flex-direction: column;
@@ -8,7 +14,7 @@
 .controls {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
   height: 80px;
   width: 50%;
 }
@@ -17,7 +23,6 @@
   width: 80%;
   height: 60%;
 }
-
 
 .controls_con {
   display: flex;
@@ -46,7 +51,7 @@
 }
 
 .controls button {
-  background-color: #4CAF50;
+  background-color: rgb(36, 50, 78);
   color: white;
   padding: 8px 16px;
   border: none;
@@ -55,7 +60,7 @@
   font-size: 16px;
 }
 .btn {
-  background-color: #4CAF50;
+  background-color: rgb(36, 50, 78);
   color: white;
   padding: 8px 16px;
   border: none;
@@ -65,7 +70,7 @@
 }
 
 .controls button:hover {
-  background-color: #45a049;
+  background-color: rgb(95, 133, 158);
 }
 
 .controls p {

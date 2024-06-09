@@ -3,9 +3,10 @@ import { useState } from 'react';
 import { database } from '../bdConfig';
 import { get, ref } from 'firebase/database';
 import { useRouter } from 'next/navigation';
+import Style from '../styles/login.module.css';
 
 const LoginPage = () => {
-  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
 
@@ -16,11 +17,11 @@ const LoginPage = () => {
       // Получение пользователей из базы данных
       const usersRef = ref(database, 'users');
       const snapshot = await get(usersRef);
-      const users = Object.values(snapshot.val());
+      const users = snapshot.val();
 
       // Проверка введенных данных
-      const user = users.find(
-        (u) => u.name === name && u.pass === parseInt(password)
+      const user = Object.values(users).find(
+        (u) => u.email === email && u.pass === password
       );
 
       if (user) {
@@ -37,15 +38,15 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
-      <h1>Вход</h1>
-      <form onSubmit={handleLogin}>
+    <div className={Style.main}>
+      <h1 className={Style.h1}>ВВЕДИТЕ EMAIL И ПАРОЛЬ</h1>
+      <form className={Style.form} onSubmit={handleLogin}>
         <label>
-          Введите имя:
+          Email:
           <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </label>
         <label>

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { get, ref } from 'firebase/database';
 import { database } from '../bdConfig';
 import StreetView from '../StreetView';
-import styles from '../layout.module.css';
+import styles from '../styles/layout.module.css';
 
 const Game = () => {
   const [inputCity, setInputCity] = useState('');
@@ -94,7 +94,7 @@ const Game = () => {
             value={inputCity}
             onChange={(e) => setInputCity(e.target.value)}
           />
-          <button id="btn" onClick={checkCity}>
+          <button className={styles.btn} onClick={checkCity}>
             Проверить
           </button>
         </div>

@@ -1,15 +1,33 @@
 'use client';
-import LoginPage from './pages/login';
 import { useRouter } from 'next/navigation';
+import Styles from './styles/page.module.css';
 
 const Page = () => {
   const router = useRouter();
   return (
-    <div>
-      {/* <LoginPage /> */}
-      <button type="button" onClick={() => router.push('/signup')}>
-        Регистрация
-      </button>
+    <div className={Styles.startPage}>
+      <div className={Styles.container3}>
+        <h1 className={Styles.h1}>ГОРОДА РОССИИ</h1>
+      </div>
+      <div className={Styles.container1}>
+        <a className={Styles.playBtn} href="/game"></a>
+      </div>
+      <div className={Styles.container2}>
+        <button
+          type="button"
+          className={Styles.btn}
+          onClick={() => router.push('/LoginPage')}
+        >
+          Войти
+        </button>
+        <button
+          type="button"
+          className={Styles.btn}
+          onClick={() => router.push('/RegisterPage')}
+        >
+          Зарегистрироваться
+        </button>
+      </div>
     </div>
   );
 };

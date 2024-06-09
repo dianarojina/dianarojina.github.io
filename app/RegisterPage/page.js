@@ -1,13 +1,14 @@
+'use client';
 import { useState } from 'react';
-import 'firebase/database';
-import { database } from '../bdConfig';
+import { ref, set } from 'firebase/database';
 import { useRouter } from 'next/navigation';
+import { database } from '../bdConfig';
+import Style from '../styles/login.module.css';
 
 const RegisterPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const router = useRouter();
 
   const handleRegister = async (event) => {
@@ -15,11 +16,10 @@ const RegisterPage = () => {
 
     try {
       // Добавление нового пользователя в базу данных
-      const newUserRef = await database.ref('users').push();
-      await newUserRef.set({
-        name,
+      await set(ref(database, 'users/' + name), {
         email,
         pass: password,
+        score: 0, // Добавляем свойство score со значением 0
       });
 
       // Очистка полей ввода
@@ -27,6 +27,7 @@ const RegisterPage = () => {
       setEmail('');
       setPassword('');
 
+      // Перенаправление на страницу игры
       router.push('/game');
     } catch (error) {
       console.error('Ошибка при регистрации:', error);
@@ -34,9 +35,9 @@ const RegisterPage = () => {
   };
 
   return (
-    <div>
-      <h1>Регистрация</h1>
-      <form onSubmit={handleRegister}>
+    <div className={Style.main}>
+      <h1 className={Style.h1}>РЕГИСТРАЦИЯ</h1>
+      <form className={Style.form} onSubmit={handleRegister}>
         <label>
           Имя:
           <input
