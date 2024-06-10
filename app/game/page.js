@@ -1,22 +1,23 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { get, ref } from 'firebase/database';
+import { get, ref, update } from 'firebase/database';
 import { database } from '../bdConfig';
 import StreetView from '../StreetView';
 import styles from '../styles/layout.module.css';
+
+import { getUserLogin } from '../UserContext';
 
 const Game = () => {
   const [inputCity, setInputCity] = useState('');
   const [message, setMessage] = useState('');
   const [pointsData, setPointsData] = useState({});
   const [currentIndex, setCurrentIndex] = useState(0);
-
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
-
   const [score, setScore] = useState(0);
-
   const [isGameOver, setIsGameOver] = useState(false);
+  const userLogin = getUserLogin();
+  //console.log('Полученный login:', userLogin);
 
   const resetGame = () => {
     setInputCity('');
@@ -25,6 +26,27 @@ const Game = () => {
     setScore(0);
     setShowModal(false);
     setIsGameOver(false);
+  };
+
+  const updateUserScore = async () => {
+    try {
+      // Get a reference to the user's document
+      const userRef = ref(database, `users/${userLogin}`);
+
+      // Fetch the current user's score from the database
+      const snapshot = await get(userRef);
+      const databaseScore = snapshot.val()?.score || 0;
+
+      // Update the user's score only if the current score is greater
+      if (score > databaseScore) {
+        let scores = score + 1;
+        await update(userRef, {
+          score: scores,
+        });
+      }
+    } catch (error) {
+      console.error('Error updating user score:', error);
+    }
   };
 
   useEffect(() => {
@@ -64,8 +86,12 @@ const Game = () => {
             Math.floor(Math.random() * Object.keys(points).length)
           );
           setScore((prevScore) => prevScore + 1);
+
           setModalMessage(text);
           setShowModal(true);
+
+          // Update the user's score in the database
+          await updateUserScore();
         } else {
           setIsGameOver(true);
           setMessage(false);
@@ -99,7 +125,9 @@ const Game = () => {
           </button>
         </div>
         <div className={styles.controls_con}>
-          <h2>Монетки {score} </h2>
+          <h2>
+            {userLogin} у тебя {score} монет
+          </h2>
         </div>
       </div>
       <div className={styles.wind}>

@@ -5,10 +5,16 @@ import { get, ref } from 'firebase/database';
 import { useRouter } from 'next/navigation';
 import Style from '../styles/login.module.css';
 
+import { setUserLogin } from '../UserContext';
+
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
+
+  const regPage = () => {
+    router.push('/RegisterPage');
+  };
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -27,7 +33,7 @@ const LoginPage = () => {
       if (user) {
         // Успешный вход в систему
         console.log('Вход выполнен успешно:', user);
-        // Перенаправление на другую страницу
+        setUserLogin(user.login);
         router.push('/game');
       } else {
         console.error('Неверный email или пароль');
@@ -58,6 +64,10 @@ const LoginPage = () => {
           />
         </label>
         <button type="submit">Войти</button>
+        <p>У вас нет аккаунта?</p>
+        <button type="button" onClick={regPage}>
+          Регистрация
+        </button>
       </form>
     </div>
   );

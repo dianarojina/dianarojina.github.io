@@ -10,7 +10,7 @@ const Page = () => {
         <h1 className={Styles.h1}>ГОРОДА РОССИИ</h1>
       </div>
       <div className={Styles.container1}>
-        <a className={Styles.playBtn} href="/game"></a>
+        <a className={Styles.playBtn} href="/LoginPage"></a>
       </div>
       <div className={Styles.container2}>
         <button
@@ -25,7 +25,7 @@ const Page = () => {
           className={Styles.btn}
           onClick={() => router.push('/RegisterPage')}
         >
-          Зарегистрироваться
+          Регистрация
         </button>
       </div>
     </div>

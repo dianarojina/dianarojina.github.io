@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { database } from '../bdConfig';
 import Style from '../styles/login.module.css';
 
+import { setUserLogin } from '../UserContext';
+
 const RegisterPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -20,12 +22,15 @@ const RegisterPage = () => {
         email,
         pass: password,
         score: 0, // Добавляем свойство score со значением 0
+        login: name,
       });
 
       // Очистка полей ввода
       setName('');
       setEmail('');
       setPassword('');
+
+      setUserLogin(name);
 
       // Перенаправление на страницу игры
       router.push('/game');
