@@ -3,7 +3,7 @@ permissions:
   contents: write
 env:
   API_KEY: ${{ secrets.API_KEY }}
-  API_KEY_BD: ${{ secrets.API_KEY_DB }}
+  API_KEY_DB: ${{ secrets.API_KEY_DB }}
   AUTH_DOMAIN: ${{ secrets.AUTH_DOMAIN }}
   PROJ_ID: ${{ secrets.PROJ_ID }}
   STOR_BUCKET: ${{ secrets.STOR_BUCKET }}
