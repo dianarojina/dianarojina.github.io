@@ -2,7 +2,16 @@
 import { useRouter } from 'next/navigation';
 import Styles from './styles/page.module.css';
 
+import { useContext } from 'react';
+import { UserContext } from './UserContext';
+
 const Page = () => {
+  const handleLogout = () => {
+    setUserLogin(null);
+    router.push('/');
+  };
+
+  const { userLogin, setUserLogin } = useContext(UserContext);
   const router = useRouter();
   return (
     <div className={Styles.startPage}>
@@ -11,6 +20,22 @@ const Page = () => {
       </div>
       <div className={Styles.container1}>
         <a className={Styles.playBtn} href="/LoginPage"></a>
+      </div>
+      <div className={Styles.container3}>
+        {userLogin !== null && (
+          <>
+            <button
+              type="button"
+              className={Styles.btn}
+              onClick={() => router.push('/game')}
+            >
+              Продолжить
+            </button>
+            <button type="button" className={Styles.btn} onClick={handleLogout}>
+              Выйти
+            </button>
+          </>
+        )}
       </div>
       <div className={Styles.container2}>
         <button
@@ -26,6 +51,13 @@ const Page = () => {
           onClick={() => router.push('/RegisterPage')}
         >
           Регистрация
+        </button>
+        <button
+          type="button"
+          className={Styles.btn}
+          onClick={() => router.push('/Leaderboard')}
+        >
+          Лидерборд
         </button>
       </div>
     </div>

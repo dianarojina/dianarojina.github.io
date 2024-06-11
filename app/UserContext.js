@@ -1,9 +1,18 @@
-let userLogin = null;
+'use client';
+import React, { createContext, useState } from 'react';
 
-export const setUserLogin = (login) => {
-  userLogin = login;
-};
+export const UserContext = createContext({
+  userLogin: null,
+  setUserLogin: () => {},
+});
 
-export const getUserLogin = () => {
-  return userLogin;
+export const UserProvider = ({ children }) => {
+  const [userLogin, setUserLogin] = useState(null);
+
+  const value = {
+    userLogin,
+    setUserLogin,
+  };
+
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };

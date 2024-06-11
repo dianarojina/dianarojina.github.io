@@ -5,13 +5,16 @@ import { useRouter } from 'next/navigation';
 import { database } from '../bdConfig';
 import Style from '../styles/login.module.css';
 
-import { setUserLogin } from '../UserContext';
+import { useContext } from 'react';
+import { UserContext } from '../UserContext';
 
 const RegisterPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
+
+  const { setUserLogin } = useContext(UserContext);
 
   const handleRegister = async (event) => {
     event.preventDefault();

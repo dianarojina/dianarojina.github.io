@@ -1,5 +1,6 @@
 const API_KEY = process.env.API_KEY;
 import Style from './styles/layout.module.css';
+import { UserProvider } from './UserContext';
 
 export default function RootLayout({
   children,
@@ -13,7 +14,9 @@ export default function RootLayout({
           src={`https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=geometry,drawing,places`}
         />
       </head>
-      <body className={Style.mainBody}>{children}</body>
+      <body className={Style.mainBody}>
+        <UserProvider>{children}</UserProvider>
+      </body>
     </html>
   );
 }

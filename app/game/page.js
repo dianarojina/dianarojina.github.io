@@ -1,11 +1,15 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { get, ref, update } from 'firebase/database';
 import { database } from '../bdConfig';
 import StreetView from '../StreetView';
 import styles from '../styles/layout.module.css';
 
-import { getUserLogin } from '../UserContext';
+import { useContext } from 'react';
+import { UserContext } from '../UserContext';
+
+//import useLocalStorage from '../localStor';
 
 const Game = () => {
   const [inputCity, setInputCity] = useState('');
@@ -16,14 +20,22 @@ const Game = () => {
   const [modalMessage, setModalMessage] = useState('');
   const [score, setScore] = useState(0);
   const [isGameOver, setIsGameOver] = useState(false);
-  const userLogin = getUserLogin();
-  //console.log('Полученный login:', userLogin);
+  const router = useRouter();
+  const { userLogin, setUserLogin } = useContext(UserContext);
+
+  //const [scoreL, setScoreL] = useLocalStorage('score', 0);
+
+  const handleLogout = () => {
+    setUserLogin(null);
+    router.push('/');
+  };
 
   const resetGame = () => {
     setInputCity('');
     setMessage('');
     setCurrentIndex(0);
     setScore(0);
+    setScoreL(scoreL * 0);
     setShowModal(false);
     setIsGameOver(false);
   };
@@ -86,6 +98,7 @@ const Game = () => {
             Math.floor(Math.random() * Object.keys(points).length)
           );
           setScore((prevScore) => prevScore + 1);
+          //setScoreL(scoreL + 1);
 
           setModalMessage(text);
           setShowModal(true);
@@ -128,6 +141,17 @@ const Game = () => {
           <h2>
             {userLogin} у тебя {score} монет
           </h2>
+        </div>
+        <div className={styles.controls_con}>
+          <button
+            className={styles.btn}
+            onClick={() => router.push('/Leaderboard')}
+          >
+            Лидерборд
+          </button>
+          <button className={styles.btn} onClick={handleLogout}>
+            Выйти
+          </button>
         </div>
       </div>
       <div className={styles.wind}>
