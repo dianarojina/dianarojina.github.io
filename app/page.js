@@ -19,7 +19,7 @@ const Page = () => {
         <h1 className={Styles.h1}>ГОРОДА РОССИИ</h1>
       </div>
       <div className={Styles.container1}>
-        <a className={Styles.playBtn} href="/LoginPage"></a>
+        <a className={Styles.playBtn} href="/LoginPage/"></a>
       </div>
       <div className={Styles.container3}>
         {userLogin !== null && (
@@ -27,7 +27,7 @@ const Page = () => {
             <button
               type="button"
               className={Styles.btn}
-              onClick={() => router.push('/game')}
+              onClick={() => router.push('/game/')}
             >
               Продолжить
             </button>
@@ -41,21 +41,21 @@ const Page = () => {
         <button
           type="button"
           className={Styles.btn}
-          onClick={() => router.push('/LoginPage')}
+          onClick={() => router.push('/LoginPage/')}
         >
           Войти
         </button>
         <button
           type="button"
           className={Styles.btn}
-          onClick={() => router.push('/RegisterPage')}
+          onClick={() => router.push('/RegisterPage/')}
         >
           Регистрация
         </button>
         <button
           type="button"
           className={Styles.btn}
-          onClick={() => router.push('/Leaderboard')}
+          onClick={() => router.push('/Leaderboard/')}
         >
           Лидерборд
         </button>

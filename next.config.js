@@ -1,6 +1,7 @@
 const nextConfig = {
   output: 'export',
-};
+  trailingSlash: true, // создаёт папки index.html вместо чистых файлов
+};  
 module.exports = nextConfig;
 // module.exports = {
 //   reactStrictMode: true,
