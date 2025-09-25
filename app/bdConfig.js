@@ -1,27 +1,21 @@
-import { initializeApp } from 'firebase/app';
-import { getDatabase } from 'firebase/database';
 
-import { getAuth } from 'firebase/auth';
-
-const API_KEY_DB = process.env.API_KEY_DB;
-const AUTH_DOMAIN = process.env.AUTH_DOMAIN;
-const PROJ_ID = process.env.PROJ_ID;
-const STOR_BUCKET = process.env.STOR_BUCKET;
-const APP_ID = process.env.APP_ID;
-const DB_URL = process.env.DB_URL;
+import { initializeApp, getApps } from "firebase/app";
+import { getDatabase } from "firebase/database";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: API_KEY_DB,
-  databaseURL: DB_URL,
-  authDomain: AUTH_DOMAIN,
-  projectId: PROJ_ID,
-  storageBucket: STOR_BUCKET,
-  messagingSenderId: '764142243987',
-  appId: APP_ID,
-  measurementId: 'G-XGXB7RDJR2',
+  apiKey: process.env.NEXT_PUBLIC_API_KEY_DB,
+  databaseURL: process.env.NEXT_PUBLIC_DB_URL,
+  authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_PROJ_ID,
+  storageBucket: process.env.NEXT_PUBLIC_STOR_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_MSG_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID,
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+// Initialize Firebase only once
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApps()[0];
+
 export const database = getDatabase(app);
 export const auth = getAuth(app);
