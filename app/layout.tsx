@@ -13,6 +13,8 @@ export default function RootLayout({
       <head>
         <script
           src={`https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=geometry,drawing,places`}
+          async
+          defer
         />
       </head>
       <body className={Style.mainBody}>
