@@ -1,7 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import Styles from './styles/page.module.css';
-import { database } from '../firebase/bdConfig.js';
 
 import { useContext } from 'react';
 import { UserContext } from './UserContext';
