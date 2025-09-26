@@ -35,7 +35,7 @@ const Game = () => {
     setMessage('');
     setCurrentIndex(0);
     setScore(0);
-    setScoreL(scoreL * 0);
+    // setScoreL(scoreL * 0);
     setShowModal(false);
     setIsGameOver(false);
   };
