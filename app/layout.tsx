@@ -1,4 +1,5 @@
-const API_KEY = process.env.API_KEY;
+'use client';
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 import Style from './styles/layout.module.css';
 import { UserProvider } from './UserContext';
 
