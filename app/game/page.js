@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { get, ref, update } from 'firebase/database';
-import { database } from '../bdConfig';
+import { database } from '../firebase/bdConfig.js';
 import StreetView from '../StreetView';
 import styles from '../styles/layout.module.css';
 

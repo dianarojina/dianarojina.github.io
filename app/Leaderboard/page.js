@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { database } from '../bdConfig';
+import { database } from '../firebase/bdConfig.js';
 import { get, ref, update } from 'firebase/database';
 import styles from '../styles/lb.module.css';
 

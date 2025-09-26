@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { ref, set } from 'firebase/database';
 import { useRouter } from 'next/navigation';
-import { database } from '../bdConfig';
+import { database } from '../firebase/bdConfig.js';
 import Style from '../styles/login.module.css';
 
 import { useContext } from 'react';
