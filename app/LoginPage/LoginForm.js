@@ -12,6 +12,9 @@ import { useContext } from 'react';
 import { UserContext } from '../UserContext';
 
 const LoginForm = () => {
+
+  const [login, setLogin] = useState('');
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
@@ -29,7 +32,7 @@ const LoginForm = () => {
 
       // Проверка введенных данных
       const user = Object.values(users).find(
-        (u) => u.email === email && u.pass === password
+        (u) => u.pass === password && u.login === login
       );
 
       if (user) {
@@ -47,14 +50,14 @@ const LoginForm = () => {
 
   return (
     <div className={Style.main}>
-      <h1 className={Style.h1}>ВВЕДИТЕ EMAIL И ПАРОЛЬ</h1>
+      <h1 className={Style.h1}>ВВЕДИТЕ ЛОГИН И ПАРОЛЬ</h1>
       <form className={Style.form} onSubmit={handleLogin}>
         <label>
-          Email:
+          Логин:
           <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="text"
+            value={login}
+            onChange={(e) => setLogin(e.target.value)}
           />
         </label>
         <label>
