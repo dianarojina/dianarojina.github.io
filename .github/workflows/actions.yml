@@ -1,25 +1,25 @@
-on: [push]
-permissions:
-  contents: write
-env:
-  API_KEY: ${{ secrets.API_KEY }}
-  API_KEY_DB: ${{ secrets.API_KEY_DB }}
-  AUTH_DOMAIN: ${{ secrets.AUTH_DOMAIN }}
-  PROJ_ID: ${{ secrets.PROJ_ID }}
-  STOR_BUCKET: ${{ secrets.STOR_BUCKET }}
-  APP_ID: ${{ secrets.APP_ID }}
-  DB_URL: ${{ secrets.DB_URL }}
-jobs:
-  build-deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - run: |
-          npm ci
-          npm run build
-      - uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: out
+# on: [push]
+# permissions:
+#   contents: write
+# env:
+#   API_KEY: ${{ secrets.API_KEY }}
+#   API_KEY_DB: ${{ secrets.API_KEY_DB }}
+#   AUTH_DOMAIN: ${{ secrets.AUTH_DOMAIN }}
+#   PROJ_ID: ${{ secrets.PROJ_ID }}
+#   STOR_BUCKET: ${{ secrets.STOR_BUCKET }}
+#   APP_ID: ${{ secrets.APP_ID }}
+#   DB_URL: ${{ secrets.DB_URL }}
+# jobs:
+#   build-deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v4
+#       - uses: actions/setup-node@v3
+#         with:
+#           node-version: 18
+#       - run: |
+#           npm ci
+#           npm run build
+#       - uses: JamesIves/github-pages-deploy-action@v4
+#         with:
+#           folder: out
