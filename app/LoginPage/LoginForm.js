@@ -15,7 +15,7 @@ const LoginForm = () => {
 
   const [login, setLogin] = useState('');
 
-  const [email, setEmail] = useState('');
+  //const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
 
@@ -41,7 +41,7 @@ const LoginForm = () => {
         setUserLogin(user.login);
         router.push('/game');
       } else {
-        alert('Неверный email или пароль');
+        alert('Неверный логин или пароль');
       }
     } catch (error) {
       console.error('Ошибка при входе:', error);
